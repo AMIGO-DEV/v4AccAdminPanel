@@ -22,13 +22,13 @@ if(isset($_POST['login']))
 		
 		$stmt = sqlsrv_query($conn, $query);
 		
-		$count=mysqli_num_rows($check);
+		$count = sqlsrv_num_rows($stmt);
 		
-		if($count>0)
-		{
-			$row_data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))
+		 if($count>0)
+		 {
+			$row_data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)
 			
-			$_SESSION['UserId'] = $row_data['UserId'];
+			echo $_SESSION['UserId'] = $row_data['UserId'];
 		}
 		
 	}
