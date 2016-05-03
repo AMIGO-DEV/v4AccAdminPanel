@@ -1,0 +1,33 @@
+client master
+
+Name
+Contat No.
+Email Add
+website
+
+Client type
+dropdown
+Manufacturer
+Supplier
+diller
+distributor
+
+client address
+client zone - dropdown
+CIty
+Zone
+state
+Country
+pincode
+
+........................................................
+General Master - Master Entry
+........................................................
+User Master - Permission
+........................................................
+GEOLOCK - 
+city
+ > Lat > Long
+State
+> Lat > Long
+........................................................

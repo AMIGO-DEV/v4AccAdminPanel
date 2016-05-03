@@ -1,0 +1,13 @@
+1.Banner images and slider
+
+2.Shipping available box > height > decrease
+
+3.leftsidebar bottom space > fill with any image
+
+4.Footer > company,customer,services > check link>some links repeat
+
+5.our mission page >Banner change >related to cloth
+
+6.About us >check and replace content related to our shop
+
+7.category > health and beauty >give link as #
