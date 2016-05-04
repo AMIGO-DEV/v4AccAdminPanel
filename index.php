@@ -16,9 +16,9 @@ if(isset($_POST['login']))
 	if($Username!='' && $Password!='')
 	{
 		$Password=md5($Password);
-		$query="select UserId,Password from user where 
-			Username='$Username' and 
-			Password='$Password' ";
+		$query="select UserId,Password from vuser where 
+			vusername='$Username' and 
+			vpassword='$Password' ";
 		
 		$stmt = sqlsrv_query($conn, $query);
 		
