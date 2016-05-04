@@ -56,7 +56,7 @@ if(isset($_POST['login']))
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+	<title></title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -83,40 +83,18 @@ if(isset($_POST['login']))
 
 </head>
 
-<body>
+<body background="assets\images\backgrounds\bannerschool1.jpg" style="background-repeat: no-repeat;background-size: cover;>
 
 	<!-- Main navbar -->
 	<div class="navbar navbar-inverse">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""></a>
+			<a class="navbar-brand" href="index.html"><img src="assets/images/logo.png" style="width:329px;height:51px" alt=""></a>
 
 			<ul class="nav navbar-nav pull-right visible-xs-block">
 				<li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
 			</ul>
 		</div>
-
-		<div class="navbar-collapse collapse" id="navbar-mobile">
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<a href="#">
-						<i class="icon-display4"></i> <span class="visible-xs-inline-block position-right"> Go to website</span>
-					</a>
-				</li>
-
-				<li>
-					<a href="#">
-						<i class="icon-user-tie"></i> <span class="visible-xs-inline-block position-right"> Contact admin</span>
-					</a>
-				</li>
-
-				<li class="dropdown">
-					<a class="dropdown-toggle" data-toggle="dropdown">
-						<i class="icon-cog3"></i>
-						<span class="visible-xs-inline-block position-right"> Options</span>
-					</a>
-				</li>
-			</ul>
-		</div>
+		
 	</div>
 	<!-- /main navbar -->
 
@@ -174,26 +152,18 @@ if(isset($_POST['login']))
 								<button type="submit" name="login"  class="btn bg-blue btn-block">Login <i class="icon-arrow-right14 position-right"></i></button>
 							</div>
 
-							<div class="content-divider text-muted form-group"><span>or sign in with</span></div>
-							<ul class="list-inline form-group list-inline-condensed text-center">
-								<li><a href="#" class="btn border-indigo text-indigo btn-flat btn-icon btn-rounded"><i class="icon-facebook"></i></a></li>
-								<li><a href="#" class="btn border-pink-300 text-pink-300 btn-flat btn-icon btn-rounded"><i class="icon-dribbble3"></i></a></li>
-								<li><a href="#" class="btn border-slate-600 text-slate-600 btn-flat btn-icon btn-rounded"><i class="icon-github"></i></a></li>
-								<li><a href="#" class="btn border-info text-info btn-flat btn-icon btn-rounded"><i class="icon-twitter"></i></a></li>
-							</ul>
+							
 
 							<div class="content-divider text-muted form-group"><span>Don't have an account?</span></div>
 							<a href="login_registration.html" class="btn btn-default btn-block content-group">Sign up</a>
-							<span class="help-block text-center no-margin">By continuing, you're confirming that you've read our <a href="#">Terms &amp; Conditions</a> and <a href="#">Cookie Policy</a></span>
+							
 						</div>
 					</form>
 					<!-- /advanced login -->
 
 
 					<!-- Footer -->
-					<div class="footer text-muted">
-						&copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
-					</div>
+					
 					<!-- /footer -->
 
 				</div>
