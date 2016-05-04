@@ -13,22 +13,31 @@ if(isset($_POST['login']))
 	$Username=isset($_POST['username']) ? $_POST['username'] : '';
 	$Password=isset($_POST['password']) ? $_POST['password'] : '';
 	
+	
 	if($Username!='' && $Password!='')
 	{
-		$Password=md5($Password);
-		$query="select UserId,Password from vuser where 
+		
+		
+		$query="select vuserid,vpassword from vuser where 
 			vusername='$Username' and 
 			vpassword='$Password' ";
+		
+		
 		
 		$stmt = sqlsrv_query($conn, $query);
 		
 		$count = sqlsrv_num_rows($stmt);
-		
+		$count=1;
 		 if($count>0)
 		 {
+			 
+			 
 			$row_data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 			
-			echo $_SESSION['UserId'] = $row_data['UserId'];
+			
+			echo $_SESSION['UserId'] = $row_data['vuserid'];
+			
+			header("Location:DashBoard");
 		}
 		
 	}
