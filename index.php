@@ -5,7 +5,7 @@ $FormRequired=1;
 $TooltipRequired=1;
 $SearchRequired=1;
 include("Include.php");
-
+SESSION_START();
 require_once 'config.php';
 
 if(isset($_POST['login']))
@@ -26,7 +26,7 @@ if(isset($_POST['login']))
 		
 		 if($count>0)
 		 {
-			$row_data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)
+			$row_data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 			
 			echo $_SESSION['UserId'] = $row_data['UserId'];
 		}

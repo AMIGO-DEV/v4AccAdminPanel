@@ -1,6 +1,6 @@
 <?php 
-$serverName = "178.63.23.134"; //serverName\instanceName
-$connectionInfo = array("Database" => "v4account_", "UID" => "v4account", "PWD" => "vinit.2016");
+$serverName = "NARENDRA-PC\SQLEXPRESS , 49172"; //serverName\instanceName
+$connectionInfo = array("Database" => "ASTL18", "UID" => "sa", "PWD" => "password");
 $conn = sqlsrv_connect($serverName, $connectionInfo);
 
 if ($conn) {

@@ -2,7 +2,7 @@ ErrorDocument 404 /404.php
 RewriteEngine on
 
 <IfModule mod_rewrite.c>
-RewriteBase /v4account
+RewriteBase /gitproject/v4AccAdminPanel/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} !=/favicon.ico
