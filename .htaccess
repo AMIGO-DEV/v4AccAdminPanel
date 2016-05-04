@@ -16,6 +16,6 @@ RewriteRule ^Functions/$ Functions.php
 RewriteRule ^Login$ index.php
 RewriteRule ^Login/$ index.php
 
-RewriteRule ^DashBoard$ dashboard.php
+RewriteRule ^DashBoard$ dashboard.php 
 RewriteRule ^DashBoard/$ dashboard.php
 
