@@ -4185,12 +4185,22 @@ elseif($Action=="Task")
 {	
 	$AssignTo=$_POST['AssignTo'];
 	$Date1=$_POST['Date1'];
-	$Date2=$_POST['Date2'];
+	$TaskName = $_POST['TaskName'];
+	$TaskDetail = $_POST['TaskDetail'];
+	$TaskId="";
 	
-	$qu = "select StaffId from user where Username='$USERNAME'";
-	$checks=mysqli_query($CONNECTION,$qu);
-	$row44=mysqli_fetch_array($checks);
-	$TaskBy=$row44['StaffId'];
+	
+	
+	$qu = "select Staffid from staff where vuserid ='$USERID'";
+	$params = array();
+	$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+	$stmt = sqlsrv_query( $conn, $qu , $params, $options );
+	
+	$count = sqlsrv_num_rows($stmt);
+	
+	$row44=sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+	$TaskBy=$row44['Staffid'];
+	
 	
 	if($AssignTo=="" || $Date1=="")
 	{
@@ -4201,12 +4211,12 @@ elseif($Action=="Task")
 	{	
 		$TaskStatus="New";
 		
-		$DateTimeStamp=strtotime($Date);
+		
 		$Date1=strtotime($Date1);
-		$Date2=strtotime($Date2);
+		
 		$DOE=strtotime($Date);
 		if($TaskId=="")
-		$query="INSERT INTO task(TaskTo,TaskBy,FromDate,UptoDate,Status)  values('$AssignTo','$TaskBy','$Date1','$Date2','$TaskStatus') ";
+		$query="INSERT INTO vtasks(vtaskname,vtaskdetail,vtaskstatus,vassignerid,vassigneeid,isdelete,datetime)  values ('$TaskName','$TaskDetail','$TaskStatus','$TaskBy','$AssignTo','NO','$Date1') ";
 		else if($TaskId!="" && $TaskStatus="New")
 		$query="update complaint set ComplaintStatus='$ComplaintStatus',ComplaintType='$ComplaintType',ComplaintNumber='$CNumber',Name='$Name',Mobile='$GR',Description='$Description',Action='$Action',DOL='$DateTimeStamp',DOLUsername='$USERNAME',DOC='$DOC' where ComplaintId='$ComplaintId' ";
 		else
@@ -4215,7 +4225,9 @@ elseif($Action=="Task")
 			$Type="error";
 		}
 		
-		mysqli_query($CONNECTION,$query);
+		$params = array();
+		$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+		$stmt = sqlsrv_query( $conn, $query , $params, $options );
 		$Message="Task Added successfully!!";
 		$Type="success";
 	}
@@ -4223,62 +4235,13 @@ elseif($Action=="Task")
 	if($TaskId=="")
 	header("Location:Task");	
 	else
-	header("Location:Task/Update/$TaskId");	
+	header("Location:Task/Update/$TaskId");
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
-
 elseif($Action=="TaskDetail")
 {	
-	$TaskDetail=$_POST['DefineTask'];
-	$TaskDetailField=$_POST['OtherTask'];
-	$TaskId=$_POST['FollowUpUniqueId'];
-	$TaskDetailStatus=$_POST['Response'];
-	$TaskDetailId=$_POST['FollowUpId'];
 	
-	$qu = "select StaffId from user where Username='$USERNAME'";
-	$checks=mysqli_query($CONNECTION,$qu);
-	$row44=mysqli_fetch_array($checks);
-	$TaskBy=$row44['StaffId'];
 	
-	if($TaskDetail!="" && $TaskDetailField!="" && $TaskDetailStatus=="" )
-	{
-		$Message="Please fill One Task At a Time And Select Status!!";
-		$Type="error";
-	}
-	else
-	{	
-		if($TaskDetailId == "") {
-		if($TaskId!="" && $TaskDetail!="")
-		$query="INSERT INTO taskdetails(TaskId,Task,taskdetailstatus,Flag)  values('$TaskId','$TaskDetail','$TaskDetailStatus','P')";
-		else if($TaskId!="" && $TaskDetailField!="" && $TaskDetail=="")
-		$query="INSERT INTO taskdetails(TaskId,Task,taskdetailstatus,Flag)  values('$TaskId','$TaskDetailField','$TaskDetailStatus','O',)";
-		else
-		{
-			$Message="Sorry You can't Add This Task.";
-			$Type="error";
-		}
-		} 
-		else{
-			if($TaskId!="" && $TaskDetail!="")
-		$query="update taskdetails set Task='$TaskDetail',taskdetailstatus='$TaskDetailStatus' where TaskDetailsId='$TaskDetailId'";
-		else if($TaskId!="" && $TaskDetailField!="" && $TaskDetail=="")
-		$query="update taskdetails set Task='$TaskDetailField',taskdetailstatus='$TaskDetailStatus' where TaskDetailsId='$TaskDetailId'";
-		else
-		{
-			$Message="Sorry You can't Edit This Task.";
-			$Type="error";
-		}
-		}
-		 
-		mysqli_query($CONNECTION,$query);
-		$Message="Task Added successfully!!";
-		$Type="success";
-	}
-	SetNotification($Message,$Type);
-	if($TaskId=="")
-	header("Location:TaskDetail/Task");	
-	else
-	header("Location:TaskDetail/Task/$TaskId");	
 
 }
 
@@ -4935,10 +4898,12 @@ elseif($Action=="SetPermission")
 	$UserType=$_POST['UserType'];
 	$PermissionSTR=$_POST['PermissionSTR'];
 	$PermissionSTR=implode(",",$PermissionSTR);
-	
+
+	$params = array();
+	$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
 	$query="select * from permission where UserType='$UserType' ";
-	$check=mysqli_query($CONNECTION,$query);
-	$count=mysqli_num_rows($check);
+	$check = sqlsrv_query( $conn, $query , $params, $options );
+	$count = sqlsrv_num_rows($check);
 	
 	if($UserType=="")
 	{
@@ -4962,7 +4927,8 @@ elseif($Action=="SetPermission")
 		$query="update permission set PermissionString='$PermissionSTR'
 				 where UserType='$UserType'";
 		}
-		mysqli_query($CONNECTION,$query);
+		
+	    sqlsrv_query( $conn, $query);
 		$Message="Saved successfully!!";
 		$Type="success";
 	}
@@ -4982,8 +4948,14 @@ elseif($Action=="ManagePage")
 	}
 	else
 	$MessageContent="added";
-	$check=mysqli_query($CONNECTION,"select PageNameId from pagename where PageName='$Page' $Already ");
-	$count=mysqli_num_rows($check);
+	$sql="select PageNameId from pagename where PageName='$Page' $Already ";
+    $stmt = sqlsrv_query($conn, $sql);
+	$RecordSet=array();
+	while($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))
+	{
+		$RecordSet[] = $row;
+	}
+	$count=count($RecordSet);
 	
 	if($Page=="")
 	{
@@ -5004,15 +4976,15 @@ elseif($Action=="ManagePage")
 	{	
 		if($PageNameId=="")
 		{
-		$query="insert into pagename(PageName) values
-		('$Page') ";
+		$query="insert into pagename(PageName) values ('$Page') ";
 		}
 		else
 		{
 		$query="update pagename set PageName='$Page'
 				 where PageNameId='$PageNameId'";
 		}
-		mysqli_query($CONNECTION,$query);
+		
+        $stmt = sqlsrv_query($conn, $query);
 		$Message="Pagename $MessageContent successfully!!";
 		$Type="success";
 	}
@@ -8031,36 +8003,79 @@ elseif($Action=="Phrase")
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="Translation")
 {	
-	$RandomToken=Escape($_POST['RandomToken']);
-
-	$query1="select TranslateId from translate where LanguageId='$LANGUAGE' ";
-	$check1=mysqli_query($CONNECTION,$query1);
-	$count1=mysqli_num_rows($check1);
-	
-	if($RandomToken!=$TOKEN)
-	{
-		$Message="Illegal data posted!!";
-		$Type="error";
-	}
-	else
-	{
+	$query1="select TranslateId from translate where LanguageId='$LANGUAGE' ";	
+	$params = array();
+	$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+	$stmt12 = sqlsrv_query( $conn, $query1 , $params, $options );
+	$count1 = sqlsrv_num_rows($stmt12);
+    $PhraseTranslate=$Message=$Type = "";
 		if($PhraseIdArray!="")
 		foreach($PhraseIdArray as $PhraseIdArrayValue)
 		{
-			$Field="T_$PhraseIdArrayValue";
-			$PhraseTranslate=Escape($_POST[$Field]);
+			 $Field="T_$PhraseIdArrayValue";
+			if(isset($_POST[$Field])){
+				$PhraseTranslate=$_POST[$Field];
+			}
+			
 			$Translation[]="$PhraseIdArrayValue**$PhraseTranslate";
 		}
+		
 		$Translation=implode("||",$Translation);
-		if($count1>0)
-		mysqli_query($CONNECTION,"update translate set Translation='$Translation' where LanguageId='$LANGUAGE' ");
-		else
-		mysqli_query($CONNECTION,"insert into translate (Translation,LanguageId) values ('$Translation','$LANGUAGE') ");
+		if($count1>0){
+		$TQuery = "update translate set Translation='$Translation' where LanguageId='$LANGUAGE'";	
+		$params = array();
+		$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+		$stmt01 = sqlsrv_query( $conn, $TQuery , $params, $options );
+		}else{
+		$TSQuery = "insert into translate (Translation,LanguageId) values ('$Translation','$LANGUAGE')";
+		
+		$params = array();
+		$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+		$stmt01 = sqlsrv_query( $conn, $TSQuery , $params, $options );
 		$Message="Saved successfully!!";
 		$Type="success";
-	}
+		}
+	
 	SetNotification($Message,$Type);
-	header("Location:Language");	
+	header("Location:Language");
+}elseif($Action=="GetCities"){
+	$cities = "SELECT * FROM cities WHERE state_id = '".$_POST['stateCode']."' ORDER BY name";
+	$params = array();
+	$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+	$cities = sqlsrv_query( $conn, $cities , $params, $options );
+	$str = "<option>--Select City--</option>";
+	while($city = sqlsrv_fetch_array($cities)){
+		$str .= '<option value="'.$city['id'].'">'.$city['name'].'</option>';
+	}
+	echo $str; 
+	exit;
+}elseif($Action == 'SetRouteMaster'){
+	if($_POST['RouteMastId'] != ""){
+		$sql ="UPDATE route_master SET RouteName = '".$_POST['Route']."',ClientName = '".$_POST['Client']."', Area = '".$_POST['Area']."',Zone = '".$_POST['Zone']."',City = '".$_POST['City']."',State='".$_POST['State']."' WHERE RouteMastId = '".$_POST['RouteMastId']."' ";
+	}else{
+		$sql = "INSERT INTO route_master (RouteName,ClientName,ClientType,Area,Zone,City,State) VALUES ('".$_POST['Route']."','".$_POST['Client']."','0','".$_POST['Area']."','".$_POST['Zone']."','".$_POST['City']."','".$_POST['State']."')";	
+	}
+	
+	sqlsrv_query( $conn, $sql);
+	$Message="Saved successfully!!";
+	$Type="success";
+	SetNotification($Message,$Type);
+	header("Location:RouteMaster");
+	exit;
+}elseif($Action == 'SetRouteAssignment'){
+	
+	if($_POST['RouteAssId'] != ""){
+		$sql = "UPDATE route_assignment SET RouteId='".$_POST['RouteId']."', Day='".$_POST['day']."', StartDate='".strtotime($_POST['start_date'])."', EndDate='".strtotime($_POST['end_date'])."', TruckNum='".$_POST['truckno']."', SalesMan='".$_POST['salesman']."' WHERE RouteAssignId = '".$_POST['RouteAssId']."'";
+	}else{
+		$sql = "INSERT INTO route_assignment(RouteId,StartDate,EndDate,Day,TruckNum,SalesMan) VALUES('".$_POST['RouteId']."','".strtotime($_POST['start_date'])."','".strtotime($_POST['end_date'])."','".$_POST['day']."','".$_POST['truckno']."','".$_POST['salesman']."') ";
+	}
+	
+	sqlsrv_query( $conn, $sql);
+	$Message="Saved successfully!!";
+	$Type="success";
+	SetNotification($Message,$Type);
+	header("Location:RouteMaster");
+	exit;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 else

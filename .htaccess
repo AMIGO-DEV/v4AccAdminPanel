@@ -19,3 +19,47 @@ RewriteRule ^Login/$ index.php
 RewriteRule ^DashBoard$ dashboard.php 
 RewriteRule ^DashBoard/$ dashboard.php
 
+RewriteRule ^Action$ Action.php
+RewriteRule ^Action/$ Action.php
+
+RewriteRule ^ActionGet$ ActionGet.php
+RewriteRule ^ActionGet/$ ActionGet.php
+RewriteRule ^ActionGet/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)$ ActionGet.php?Action=$1&UniqueId=$2
+RewriteRule ^ActionGet/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/$ ActionGet.php?Action=$1&UniqueId=$2
+
+RewriteRule ^Language$ Language.php
+RewriteRule ^Language/$ Language.php
+RewriteRule ^Language/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)$ Language.php?Action=$1&Id=$2
+RewriteRule ^Language/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/$ Language.php?Action=$1&Id=$2
+
+
+RewriteRule ^Task/$ Task.php
+RewriteRule ^Task$ Task.php
+RewriteRule ^Task/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)$ Task.php?Action=$1&TaskId=$2
+RewriteRule ^Task/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/$ Task.php?Action=$1&TaskId=$2
+
+RewriteRule ^LogOut$ LogOut.php
+RewriteRule ^LogOut/$ LogOut.php
+
+
+RewriteRule ^TaskDetail/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)$ TaskDetail.php?Action=$1&Id=$2
+RewriteRule ^TaskDetail/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/$ TaskDetail.php?Action=$1&Id=$2
+RewriteRule ^TaskDetail/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)$ TaskDetail.php?Action=$1&Id=$2&FAction=$3&FId=$4
+RewriteRule ^TaskDetail/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/$ TaskDetail.php?Action=$1&Id=$2&FAction=$3&FId=$4
+
+
+RewriteRule ^Permission$ Permission.php
+RewriteRule ^Permission/$ Permission.php
+RewriteRule ^Permission/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)$ Permission.php?Action=$1&UniqueId=$2
+RewriteRule ^Permission/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/$ Permission.php?Action=$1&UniqueId=$2
+
+RewriteRule ^RouteMaster$ RouteMaster.php
+RewriteRule ^RouteMaster/$ RouteMaster.php
+RewriteRule ^RouteMaster/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)$ RouteMaster.php?Action=$1&UniqueId=$2
+RewriteRule ^RouteMaster/([A-Za-z0-9\-]+)/([A-Za-z0-9\-]+)/$ RouteMaster.php?Action=$1&UniqueId=$2
+
+RewriteRule ^ReportAction$ ReportAction.php
+RewriteRule ^ReportAction/$ ReportAction.php
+
+
+

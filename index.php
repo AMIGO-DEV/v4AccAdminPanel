@@ -18,24 +18,25 @@ if(isset($_POST['login']))
 	{
 		
 		
-		$query="select vuserid,vpassword from vuser where 
+		
+		$sql = "select vuserid,vusertype from vuser where 
 			vusername='$Username' and 
 			vpassword='$Password' ";
+		$params = array();
+		$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+		$stmt = sqlsrv_query( $conn, $sql , $params, $options );
 		
-		
-		
-		$stmt = sqlsrv_query($conn, $query);
-		
+
 		$count = sqlsrv_num_rows($stmt);
-		$count=1;
+		
 		 if($count>0)
 		 {
-			 
-			 
+			
 			$row_data = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
 			
-			
-			echo $_SESSION['UserId'] = $row_data['vuserid'];
+			 $_SESSION['UserId'] = $row_data['vuserid'];
+			 $_SESSION['USERTYPE'] = $row_data['vusertype'];
+			 $_SESSION['USERNAME']=$Username;
 			
 			header("Location:DashBoard");
 		}

@@ -191,7 +191,7 @@ function GetCategoryValueOfId($Id,$Name)
 
 function GetCategoryValue($Name,$FieldName,$DefaultValue,$Ajx,$AjaxField,$AjaxFieldTxt,$Readonly,$TabIndex,$Multiple)
 {
-global $CONNECTION;
+global $conn;
 $FieldNameId=$FieldName;
 if($Multiple==1)
 {	
@@ -204,14 +204,15 @@ else
 echo "<select tabindex=$TabIndex name=$FieldName id=$FieldNameId class=\"form-control select\" $Readonly style=\"width:100%;\" $Multiple>";
 if($Multiple=="")
 echo "<option selected='selected'>Select</option>";
-$check=mysqli_query($CONNECTION,"select * from masterentry where MasterEntryName='$Name' and MasterEntryStatus='Active' order by MasterEntryValue");
-while($row=mysqli_fetch_array($check))
+$sql = "SELECT Recid,Code,Descr FROM GenLookUp WHERE Recid='$Name'";
+$stmt = sqlsrv_query($conn, $sql);
+while($row=sqlsrv_fetch_array($stmt))
 {
-	$MasterEntryId=$row['MasterEntryId'];
-	$MasterEntryValue=$row['MasterEntryValue'];
+	$MasterEntryId=$row['Recid'];
+	$MasterEntryValue=$row['Descr'];
 	if($Multiple=="")
 	{
-	if($DefaultValue==$MasterEntryId)
+	if($DefaultValue==$MasterEntryValue)
 	$selected="selected";
 	else
 	$selected="";
@@ -221,14 +222,14 @@ while($row=mysqli_fetch_array($check))
 		$selected="";
 		foreach($DefaultValue as $kk)
 		{
-			if($kk==$MasterEntryId)
+			if($kk==$MasterEntryValue)
 			{
 				$selected="selected";
 				break;
 			}
 		}
 	}
-	echo "<option value=$MasterEntryId $selected>$MasterEntryValue</option>";
+	echo "<option value=$MasterEntryValue $selected>$MasterEntryValue</option>";
 }
 echo "</select>";
 }
@@ -402,19 +403,25 @@ function CopyDirectory( $source, $destination ) {
 	}
 }
 function Escape($array){
-global $CONNECTION;
+global $conn;
 	if(is_array($array)) {
 		foreach($array as $key => $value) {
 			if(is_array($array[$key]))
 				$array[$key] = $this->filterParameters($array[$key]);
 	   
 			if(is_string($array[$key]))
-				$array[$key] = mysqli_real_escape_string($array[$key]);
+				$array[$key] = mssql_escape($array[$key]);
 		}           
 	}
 	if(is_string($array))
-		$array = mysqli_real_escape_string($CONNECTION,$array);
+		$array = mssql_escape($array);
 	return $array;
+}
+function mssql_escape($data) {
+    if(is_numeric($data))
+        return $data;
+    $unpacked = unpack('H*hex', $data);
+    return '0x' . $unpacked['hex'];
 }
 function GetRandomColor()
 {

@@ -1,0 +1,1 @@
+{"aaData":[["jax","GJ - SC - 2378","1234","4.00","50.00","18 Apr 2016","<a href=Transport\/UpdateFuel\/5><span class=\"icon-edit tip\" title=\"Update\"><\/span><\/a>","<a href=DeletePopUp\/DeleteFuel\/5 data-toggle=\"modal\" data-target=\"#myModal\"><span class=\"icomoon-icon-cancel tip\" title=\"Delete\"><\/span><\/a>"]]}

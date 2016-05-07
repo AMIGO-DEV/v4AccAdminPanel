@@ -1,0 +1,1 @@
+{"aaData":[["manage client","manage individually","Completed","<a href=TaskDetail\/Task\/12\/Update\/2><span class=\"glyphicon glyphicon-edit\" title=\"Update\"><\/span><\/a>"]]}

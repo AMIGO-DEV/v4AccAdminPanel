@@ -82,6 +82,7 @@
 									<div class="media-annotation">Dec 12, 05:46</div>
 								</div>
 							</li>
+							
 						</ul>
 
 						<div class="dropdown-content-footer">
@@ -90,6 +91,36 @@
 					</div>
 				</li>
 			</ul>
+			<?php  
+						$query103="select LanguageName,LanguageId from lang";
+					
+						$ListLang=$SelectedLang="";
+						$params = array();
+						$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+						$stmt = sqlsrv_query( $conn, $query103 , $params, $options );
+		
+
+						$count103 = sqlsrv_num_rows($stmt);
+
+						if($count103>0)
+						{
+							
+							while($row103=sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))
+							{
+								$ListLanguageName=$row103['LanguageName'];
+								$ListLanguageId=$row103['LanguageId'];
+								if($LANGUAGE==$ListLanguageId)
+								$SelectedLang=$ListLanguageName;
+								$ListLang.="<li><a href=ActionGet/Language/$ListLanguageId><b>$ListLanguageName</b></a></li>";
+							}
+							
+						}							
+						if($SelectedLang=="")
+						$SelectedLang="English";
+						if($SelectedLang!="English")
+						$ListLang.="<li><a href=\"ActionGet/Language/0\"><b>English</b></a></li>";
+						$ListLang.="<li><a href=Language><b>Add more Language</b></a></li>";
+							?>
 
 			<p class="navbar-text"><span class="label bg-success">Online</span></p>
 
@@ -99,16 +130,15 @@
 						<img src="assets/images/flags/gb.png" class="position-left" alt="">
 						English
 						<span class="caret"></span>
+						
 					</a>
+					
 
 					<ul class="dropdown-menu">
-						<li><a class="deutsch"><img src="assets/images/flags/de.png" alt=""> Deutsch</a></li>
-						<li><a class="ukrainian"><img src="assets/images/flags/ua.png" alt=""> Українська</a></li>
-						<li><a class="english"><img src="assets/images/flags/gb.png" alt=""> English</a></li>
-						<li><a class="espana"><img src="assets/images/flags/es.png" alt=""> España</a></li>
-						<li><a class="russian"><img src="assets/images/flags/ru.png" alt=""> Русский</a></li>
+						<?php echo $ListLang; ?>
 					</ul>
 				</li>
+				
 
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -214,7 +244,7 @@
 						<li><a href="#"><span class="badge bg-teal-400 pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
 						<li class="divider"></li>
 						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-						<li><a href="#"><i class="icon-switch2"></i> Logout</a></li>
+						<li><a href="LogOut"><i class="icon-switch2"></i> Logout</a></li>
 					</ul>
 				</li>
 			</ul>
