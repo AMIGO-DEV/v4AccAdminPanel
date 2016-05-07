@@ -1,6 +1,7 @@
 ErrorDocument 404 /404.php
 RewriteEngine on
 
+
 <IfModule mod_rewrite.c>
 RewriteBase /gitproject/v4AccAdminPanel/
 RewriteCond %{REQUEST_FILENAME} !-f

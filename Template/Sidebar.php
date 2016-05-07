@@ -7,31 +7,7 @@
 <div class="sidebar sidebar-main">
 				<div class="sidebar-content">
 
-					<!-- User menu -->
-					<div class="sidebar-user">
-						<div class="category-content">
-							<div class="media">
-								<a href="#" class="media-left"><img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt=""></a>
-								<div class="media-body">
-									<span class="media-heading text-semibold">Victoria Baker</span>
-									<div class="text-size-mini text-muted">
-										<i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
-									</div>
-								</div>
-
-								<div class="media-right media-middle">
-									<ul class="icons-list">
-										<li>
-											<a href="#"><i class="icon-cog3"></i></a>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /user menu -->
-
-
+					
 					<!-- Main navigation -->
 					<div class="sidebar-category sidebar-category-visible">
 						<div class="category-content no-padding">
@@ -42,6 +18,7 @@
 								<li class="active"><a href="DashBoard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                 <li><a href="#"><i class="icon-stack2"></i> <span>Masters</span></a>
                                     <ul>
+<<<<<<< HEAD
                                         <li><a href="product_master.html"><i class="icon-stack"></i><span><?php echo Translate('Product Masters'); ?></span></a></li>
                                         <li><a href="#"><i class="icon-stack2"></i> <span><?php echo Translate('General Master'); ?></span></a></li>
 								<li><a href="client_master.html"><i class="icon-copy"></i> <span><?php echo Translate('Client Master'); ?></span></a></li>
@@ -51,6 +28,16 @@
                                  <li><a href="loyalty_master.html"><i class="icon-footprint"></i><span><?php echo Translate('Loyalty Point Master'); ?></span></a>                                 
 								<ul><li><a href="Loyalty_point_hdr.html"><span><?php echo Translate('Loyalty Point HDR'); ?></span></a></li>
                                 <li><a href="Loyalty_point_dtls.html"><span><?php echo Translate('Loyalty Point DTLS'); ?></span></a></li>
+=======
+                                        <li><a href="Productmaster.php"><i class="icon-stack"></i><span>Product Masters</span></a></li>
+                                        <li><a href="#"><i class="icon-stack2"></i> <span>General Master</span></a></li>
+								<li><a href="client_master.html"><i class="icon-copy"></i> <span>Client Master</span></a></li>
+								<li><a href="geoloc_master.html"><i class="icon-droplet2"></i> <span>Geoloc Master</span></a></li>
+								<li><a href="user_master.html"><i class="icon-stack"></i> <span>User Master</span></a></li>
+								<li><a href="#"><i class="icon-pencil3"></i><span>Price Master</span></a></li>
+                                                                <li><a href="loyalty_master.html"><i class="icon-footprint"></i><span>Loyalty Point Master</span></a>                                 <ul><li><a href="Loyalty_point_hdr.html"><span>Loyalty Point HDR</span></a></li>
+                                <li><a href="Loyalty_point_dtls.html"><span>Loyalty Point DTLS</span></a></li>
+>>>>>>> b559be317f82c1c432320d7d70fbe5f45b4ebe4a
                                 </ul></li>
                                 <li><a href="#"><i class="icon-spell-check"></i><span><?php echo Translate('Tax Master'); ?></span></a></li>
                                 <li><a href="#"><i class="icon-select2"></i><span><?php echo Translate('Partly Pay Mode Master'); ?></span></a></li>
@@ -69,7 +56,7 @@
 						</div>
 					</div>
 					<!-- /main navigation -->
-
+ 
 				</div>
 			</div>
 			<!-- /main sidebar -->

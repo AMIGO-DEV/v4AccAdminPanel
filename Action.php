@@ -10,6 +10,7 @@ header("Location:LogIn");
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="Delete")
 {
+	
 $Password=$_POST['Password'];
 if($USERTYPE!="MasterUser" && $USERTYPE!="Webmaster")
 {
