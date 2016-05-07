@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="images/favicon.ico" />    
 	<base href="<?php echo $BASEURL; ?>" />    
-    <title><?php echo "$SCHOOLNAME"; ?></title>
+    <title><?php //echo "$SCHOOLNAME"; ?></title>
 
 	<!-- Global stylesheets -->
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -41,7 +41,15 @@
 	<script type="text/javascript" src="assets/js/plugins/pickers/daterangepicker.js"></script>
 
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
-	<script type="text/javascript" src="assets/js/pages/dashboard.js"></script>
+	
+	<script type="text/javascript" src="assets/js/plugins/forms/wizards/stepy.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/selects/select2.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/styling/uniform.min.js"></script>
+	<script type="text/javascript" src="assets/js/core/libraries/jasny_bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/js/plugins/forms/validation/validate.min.js"></script>
+
+	<script type="text/javascript" src="assets/js/core/app.js"></script>
+	<script type="text/javascript" src="assets/js/pages/wizard_stepy.js"></script>
 	<!-- /theme JS files -->
 	
 	<?php
