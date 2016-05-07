@@ -10,5 +10,6 @@ if ($conn) {
     die(print_r(sqlsrv_errors(), true));
 }
 
+
 $BASEURL="http://localhost/gitproject/v4AccAdminPanel/";
 ?>
