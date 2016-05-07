@@ -10,7 +10,6 @@
 	include("Template/HTML.php");
 	
 	
-	
 ?>    
 
 <?php

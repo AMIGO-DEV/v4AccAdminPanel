@@ -10,6 +10,7 @@ require_once 'config.php';
 
 //IsLoggedIn();
 
+
 // storing  request (ie, get/post) global array to a variable  
 $requestData= $_REQUEST;
 
