@@ -42,17 +42,9 @@ if(isset($PageName))
 }
 
 $DefaultPage=Array('DashBoard','Login','Logout','ChangePassword','Register');
-if(isset($_SESSION['USERTYPE']) && $_SESSION['USERTYPE']=="MasterUser")
-array_push($DefaultPage,'GeneralSetting');
 
-foreach($DefaultPage as $kkk)
-{
-	if(isset($PageName) && $PageName==$kkk)
-	$ByPass=1;
-}
 
-if(!isset($PageName))
-$ByPass=1;
+
 
 
 $USERTYPE=$USERNAME=$USERID=$NAME=$USERTYPEID=$TOKEN=$USERACCOUNTTYPE=$CURRENTSESSION=$LANGUAGE=$CURRENCY="";

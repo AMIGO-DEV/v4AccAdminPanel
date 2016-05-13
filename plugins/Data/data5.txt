@@ -1,1 +1,1 @@
-{"aaData":[["manage client","manage individually","Completed","<a href=TaskDetail\/Task\/12\/Update\/2><span class=\"glyphicon glyphicon-edit\" title=\"Update\"><\/span><\/a>"]]}
+{"aaData":[["complete all ","get detail from ","Completed","<a href=TaskDetail.php\/?Action=Task&Id=11&FAction=Update&FId=1><span class=\"glyphicon glyphicon-edit\" title=\"Update\"><\/span><\/a>"],["sfvsfd","sdvsdv","New","<a href=TaskDetail.php\/?Action=Task&Id=11&FAction=Update&FId=4><span class=\"glyphicon glyphicon-edit\" title=\"Update\"><\/span><\/a>"]]}

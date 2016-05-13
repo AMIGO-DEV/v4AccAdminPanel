@@ -1,12 +1,15 @@
 <?php
 error_reporting(0);
 ob_start();
+
 include("Include.php");
 IsLoggedIn();
 $Action=$_POST['Action'];
 $RandomNumber=$_POST['RandomNumber'];
+
 if($Action=="")
 header("Location:LogIn");
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="Delete")
 {
@@ -4234,9 +4237,9 @@ elseif($Action=="Task")
 	}
 	SetNotification($Message,$Type);
 	if($TaskId=="")
-	header("Location:Task");	
+	header("Location:Task.php");	
 	else
-	header("Location:Task/Update/$TaskId");
+	header("Location:Task.php/?Action=Update&taskid=$TaskId");
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="TaskDetail")
@@ -4934,7 +4937,7 @@ elseif($Action=="SetPermission")
 		$Type="success";
 	}
 	SetNotification($Message,$Type);
-	header("Location:Permission");	
+	header("Location:Permission.php");	
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="ManagePage")
@@ -4991,9 +4994,9 @@ elseif($Action=="ManagePage")
 	}
 	SetNotification($Message,$Type);
 	if($PageNameId=="")
-	header("Location:Permission");	
+	header("Location:Permission.php");	
 	else
-	header("Location:Permission/UpdatePage/$PageNameId");	
+	header("Location:Permission.php/?Action=UpdatePage&UniqueId=$PageNameId");	
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="ManageTable")
@@ -7953,22 +7956,25 @@ elseif($Action=="Language")
 	}
 	SetNotification($Message,$Type);
 	if($LanguageId=="" || ($LanguageId!="" && $Type=="success"))
-	header("Location:Language");	
+	header("Location:Language.php");	
 	else
 	header("Location:Language/UpdateLanguage/$LanguageId");	
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="Phrase")
 {	
-	$Phrase=Escape($_POST['Phrase']);;
-	$PhraseId=Escape($_POST['PhraseId']);
-	$RandomToken=Escape($_POST['RandomToken']);
+
+	$Phrase=$_POST['Phrase'];
+	$PhraseId=$_POST['PhraseId'];
+	$RandomToken=$_POST['RandomToken'];
 	
 	if($PhraseId!="")
 	$Update=" and PhraseId!='$PhraseId' ";
 	$query1="select * from phrase where Phrase='$Phrase' $Update ";
-	$check1=mysqli_query($CONNECTION,$query1);
-	$count1=mysqli_num_rows($check1);
+	$params = array();
+	$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+	$stmt021 = sqlsrv_query( $conn, $query1 , $params, $options );
+	$count1=sqlsrv_num_rows($stmt021);
 	
 	if($Phrase=="")
 	{
@@ -7987,19 +7993,21 @@ elseif($Action=="Phrase")
 	}
 	else
 	{
-		if($PhraseId=="")
+		if($PhraseId==""){
 		$query="insert into phrase(Phrase) values('$Phrase') ";
-		else
+		}else{
 		$query="update phrase set Phrase='$Phrase' where PhraseId='$PhraseId' ";
-		mysqli_query($CONNECTION,$query);
+		}
+		
+		$stmt9812 = sqlsrv_query( $conn, $query , $params, $options );
 		$Message="Saved successfully!!";
 		$Type="success";
 	}
 	SetNotification($Message,$Type);
 	if($PhraseId=="" || ($PhraseId!="" && $Type=="success"))
-	header("Location:Language");	
+	header("Location:Language.php");	
 	else
-	header("Location:Language/UpdatePhrase/$PhraseId");	
+	header("Location:Language.php/?AC=UpdatePhrase&PID=$PhraseId");	
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="Translation")
@@ -8038,19 +8046,24 @@ elseif($Action=="Translation")
 		}
 	
 	SetNotification($Message,$Type);
-	header("Location:Language");
-}elseif($Action=="GetCities"){
-	$cities = "SELECT * FROM cities WHERE state_id = '".$_POST['stateCode']."' ORDER BY name";
+	header("Location:Language.php");
+}
+//////////////////////////////////////////////////////////////////
+elseif($Action=="GetZones"){
+	//$cities = "SELECT * FROM cities WHERE state_id = '".$_POST['stateCode']."' ORDER BY name";
+	$cities = "SELECT Town FROM MailingList WHERE State = '".$_POST['stateCode']."' AND Town <> ''  GROUP BY Town ORDER BY Town";
 	$params = array();
 	$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
 	$cities = sqlsrv_query( $conn, $cities , $params, $options );
-	$str = "<option>--Select City--</option>";
+	$str = "<option>--Select Zones--</option>";
 	while($city = sqlsrv_fetch_array($cities)){
-		$str .= '<option value="'.$city['id'].'">'.$city['name'].'</option>';
+		$str .= '<option value="'.$city['Town'].'">'.$city['Town'].'</option>';
 	}
 	echo $str; 
 	exit;
-}elseif($Action == 'SetRouteMaster'){
+}
+elseif($Action == 'SetRouteMaster'){
+	ECHO "<PRE>"; print_r($_POST);exit;
 	if($_POST['RouteMastId'] != ""){
 		$sql ="UPDATE route_master SET RouteName = '".$_POST['Route']."',ClientName = '".$_POST['Client']."', Area = '".$_POST['Area']."',Zone = '".$_POST['Zone']."',City = '".$_POST['City']."',State='".$_POST['State']."' WHERE RouteMastId = '".$_POST['RouteMastId']."' ";
 	}else{
@@ -8061,10 +8074,11 @@ elseif($Action=="Translation")
 	$Message="Saved successfully!!";
 	$Type="success";
 	SetNotification($Message,$Type);
-	header("Location:RouteMaster");
+	header("Location:RouteMaster.php");
 	exit;
-}elseif($Action == 'SetRouteAssignment'){
-	
+}
+elseif($Action == 'SetRouteAssignment'){
+	echo "<pre>"; print_r($_POST); exit;
 	if($_POST['RouteAssId'] != ""){
 		$sql = "UPDATE route_assignment SET RouteId='".$_POST['RouteId']."', Day='".$_POST['day']."', StartDate='".strtotime($_POST['start_date'])."', EndDate='".strtotime($_POST['end_date'])."', TruckNum='".$_POST['truckno']."', SalesMan='".$_POST['salesman']."' WHERE RouteAssignId = '".$_POST['RouteAssId']."'";
 	}else{
@@ -8075,7 +8089,7 @@ elseif($Action=="Translation")
 	$Message="Saved successfully!!";
 	$Type="success";
 	SetNotification($Message,$Type);
-	header("Location:RouteMaster");
+	header("Location:RouteMaster.php");
 	exit;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////

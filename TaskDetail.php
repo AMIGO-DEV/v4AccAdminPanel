@@ -71,9 +71,9 @@ if($Action=="TaskDetail"){
 	}
 	SetNotification($Message,$Type);
 	if($TaskId=="")
-	header("Location:TaskDetail/Task");	
+	header("Location:TaskDetail.php/?Action=Task");	
 	else
-	header("Location:TaskDetail/Task/$TaskId");	
+	header("Location:TaskDetail.php/?Act=Task&Tid=$TaskId");	
 }else {
 	
 	
@@ -103,8 +103,20 @@ if($Action=="TaskDetail"){
 				$GR=$row20['StaffMobile'];
 				$Assigner=$row20['vassignerid'];
 				$Assignee=$row20['vassigneeid'];
-			
-					
+				
+				$Q20="Select vassignerid from vtasks t join staff s on t.vassignerid=s.Staffid where t.vtasksid='$FollowUpUniqueId'";
+				$stmt20 = sqlsrv_query( $conn, $Q20 , $params, $options );
+				$count120 = sqlsrv_num_rows($stmt20);
+				$row120=sqlsrv_fetch_array($stmt20, SQLSRV_FETCH_ASSOC);
+				$Vassi=$row120['vassignerid'];
+				
+				$Q22="Select Staffid from staff where vuserid='$USERID'";
+				$stmt22 = sqlsrv_query( $conn, $Q22 , $params, $options );
+				$count122 = sqlsrv_num_rows($stmt22);
+				$row122=sqlsrv_fetch_array($stmt22, SQLSRV_FETCH_ASSOC);
+				$Staffi=$row122['Staffid'];
+				
+				
 					
 				if($FollowUpId!="")
 				{	
@@ -164,6 +176,7 @@ if($Action=="TaskDetail"){
 			</div>		
 		</div>
 	    <div class="col-md-12">
+		<?php if($Vassi==$Staffi){ ?>
 		    <div class="col-md-5">
 			    <div class="col-md-12">
 							<!-- Basic layout-->
@@ -222,6 +235,7 @@ if($Action=="TaskDetail"){
 				    </div>
 
 		    </div>
+		<?php } ?>
 			<?php
 					
 				
@@ -239,8 +253,7 @@ if($Action=="TaskDetail"){
 						$TaskDetail=$row['vsubtaskdetails'];
 						$Status=$row['vsubtaskstatus'];	
 						$TaskDetailsId=$row['vsubtaskid'];	
-						
-						$Edit="<a href=TaskDetail/Task/$FollowUpUniqueId/Update/$TaskDetailsId><span class=\"glyphicon glyphicon-edit\" title=\"Update\"></span></a>";
+						$Edit="<a href=TaskDetail.php/?Action=Task&Id=$FollowUpUniqueId&FAction=Update&FId=$TaskDetailsId><span class=\"glyphicon glyphicon-edit\" title=\"Update\"></span></a>";
 						$Delete="<a href=TaskDetail/$FollowUpUniqueId/Delete/$TaskDetailsId><span class=\"icomoon-icon-cancel tip\" title=\"Delete\"></span></a>";
 						$QA[]=array($Task,$TaskDetail,$Status,$Edit);
 					}
@@ -271,9 +284,11 @@ if($Action=="TaskDetail"){
 										<th>Task Detail</th>
 										<th>Status</th>
 									
-										
+										<?php if($Vassi==$Staffi){ ?>
+						
+						
 										<th><i class="glyphicon glyphicon-edit"></i></th>
-																
+										<?php } ?>					
 									</tr>
 								</thead>
 								<tbody>														

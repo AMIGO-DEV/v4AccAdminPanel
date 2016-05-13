@@ -111,33 +111,32 @@
 								$ListLanguageId=$row103['LanguageId'];
 								if($LANGUAGE==$ListLanguageId)
 								$SelectedLang=$ListLanguageName;
-								$ListLang.="<li><a href=ActionGet/Language/$ListLanguageId><b>$ListLanguageName</b></a></li>";
+								$ListLang.="<li class=\"dropdown language-switch\"><a href=ActionGet.php/?Action=Language&UniqueId=$ListLanguageId><b>$ListLanguageName</b></a></li>";
 							}
 							
 						}							
 						if($SelectedLang=="")
 						$SelectedLang="English";
 						if($SelectedLang!="English")
-						$ListLang.="<li><a href=\"ActionGet/Language/0\"><b>English</b></a></li>";
-						$ListLang.="<li><a href=Language><b>Add more Language</b></a></li>";
+						$ListLang.="<li class=\"dropdown language-switch\"><a href=\"ActionGet.php/?Action=Language&UniqueId=0\"><b>English</b></a></li>";
+						
 							?>
 
 			<p class="navbar-text"><span class="label bg-success">Online</span></p>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown language-switch">
-					<a class="dropdown-toggle" data-toggle="dropdown">
-						<img src="assets/images/flags/gb.png" class="position-left" alt="">
-						English
-						<span class="caret"></span>
-						
-					</a>
+				
 					
-
-					<ul class="dropdown-menu">
+					
+					
+					
+					
 						<?php echo $ListLang; ?>
-					</ul>
-				</li>
+						<span class="caret"></span>
+					
+				
+					
+				
 				
 
 				<li class="dropdown">
@@ -244,7 +243,7 @@
 						<li><a href="#"><span class="badge bg-teal-400 pull-right">58</span> <i class="icon-comment-discussion"></i> Messages</a></li>
 						<li class="divider"></li>
 						<li><a href="#"><i class="icon-cog5"></i> Account settings</a></li>
-						<li><a href="LogOut"><i class="icon-switch2"></i> Logout</a></li>
+						<li><a href="LogOut.php"><i class="icon-switch2"></i> Logout</a></li>
 					</ul>
 				</li>
 			</ul>

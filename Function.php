@@ -18,7 +18,7 @@ function IsLoggedIn()
 	$Type="error";
 	SetNotification($Message,$Type);
 	$_SESSION['NotLoggedIn']=1;
-	header("Location:LogIn");
+	header("Location:index.php");
 	exit();
 	}
 }

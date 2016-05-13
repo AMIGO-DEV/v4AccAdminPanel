@@ -45,7 +45,7 @@ include("Template/Sidebar.php");
 				}
 				
 				
-				$check = "select * from staff";
+				$check = "select * from staff where vuserid!='$USERID'";
 				
 				
 				$params = array();
@@ -100,7 +100,7 @@ include("Template/Sidebar.php");
 		    <div class="col-md-5">
 			    <div class="col-md-12">
 							<!-- Basic layout-->
-							<form class="form-horizontal" action="Action" name="Task" id="Task" method="Post" enctype="multipart/form-data">
+							<form class="form-horizontal" action="Action.php" name="Task" id="Task" method="Post" enctype="multipart/form-data">
 								<div class="panel panel-white">
 									<div class="panel-heading">
 										<h5 class="panel-title">Task</h5>
@@ -187,7 +187,7 @@ include("Template/Sidebar.php");
 						$startdate=date("d-m-Y",$row['datetime']);
 						$status=$row['vtaskstatus'];
 						if($startdate!="")
-						$TaskDetail="<a href=TaskDetail/Task/$TaskId><span class=\"glyphicon glyphicon-list-alt\" title=\"Task Detail\"></span></a>";
+						$TaskDetail="<a href=TaskDetail.php/?Action=Task&Id=$TaskId><span class=\"glyphicon glyphicon-list-alt\" title=\"Task Detail\"></span></a>";
 						else
 						$TaskDetail="";
 						if($status=="New")
@@ -198,7 +198,7 @@ include("Template/Sidebar.php");
 						$status="<span class=\"badge badge-success\">Accepted<span>";
 						
 						
-						$Delete="<a href=Task/Delete/$TaskId><span class=\"icon-cross\" title=\"Delete\"></span></a>";
+						$Delete="<a href=Task.php/?Action=Delete&TaskId=$TaskId><span class=\"icon-cross\" title=\"Delete\"></span></a>";
 						$QA[]=array($StaffName,$TaskByName,$TaskName,$Taskinfo,$startdate,$status,$TaskDetail,$Delete);
 						$Print3.="<tr class=\"odd gradeX\">
 								<td>$TaskTo</td>
@@ -239,7 +239,7 @@ include("Template/Sidebar.php");
 						
 						
 						if($startdate!="")
-						$TaskDetail="<a href=TaskDetail/Task/$TaskId><span class=\"glyphicon glyphicon-list-alt\" title=\"Task Detail\"></span></a>";
+						$TaskDetail="<a href=TaskDetail.php/?Action=Task&Id=$TaskId><span class=\"glyphicon glyphicon-list-alt\" title=\"Task Detail\"></span></a>";
 						else
 						$TaskDetail="";
 						if($status=="New")

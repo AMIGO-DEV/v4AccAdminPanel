@@ -2,6 +2,8 @@
 include("Include.php");
 $Action=$_GET['Action'];
 $UniqueId=$_GET['UniqueId'];
+
+
 if($Action=="SetSession")
 {
 	foreach($SCHOOLSESSION as $SchoolSession)
@@ -281,7 +283,7 @@ if($Action=="Language")
 	$stmt = sqlsrv_query( $conn, $query , $params, $options );
 	$count = sqlsrv_num_rows($stmt);
 	//$LastPage=isset($_SESSION['LastPage']) ? $_SESSION['LastPage'] : '';
-	$LastPage = "http://localhost/gitproject/v4AccAdminPanel/Language";
+	$LastPage = "http://localhost/gitproject/v4AccAdminPanel/Language.php";
 	unset($_SESSION['LastPage']);
 	
 	
@@ -304,5 +306,5 @@ if($Action=="Language")
 	header("Location:$LastPage");
 }
 else
-header("Location:DashBoard");
+header("Location:DashBoard.php");
 ?>

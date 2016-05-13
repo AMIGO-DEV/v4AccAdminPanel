@@ -101,7 +101,7 @@ include("Template/Sidebar.php");
 							$row=sqlsrv_fetch_array($stmt);
 							$UserTypeName=$row['Descr'];
 							
-							$ActionPage="Action";
+							$ActionPage="Action.php";
 							$ButtonContent="Save"; 
 							$check77="select * from permission where UserType='$UserType' ";
 							$check77 = sqlsrv_query( $conn, $check77 , $params, $options );
@@ -115,7 +115,7 @@ include("Template/Sidebar.php");
 								$CountAdded=count($PermissionString);
 							}
 						}
-						$AddButton="Update Permission <a href=Permission><span class=\"cut-icon-plus-2 addbutton\"> Add Permission </span></a>";
+						$AddButton="Update Permission <a href=Permission.php><span class=\"cut-icon-plus-2 addbutton\"> Add Permission </span></a>";
 					}
 					else
 						$AddButton="Set Permission";
@@ -146,7 +146,7 @@ include("Template/Sidebar.php");
 								}
 								}
 								$ListOption.="<option value=$ListPageNameId $Selected>$ListPage</option>";
-								$Edit="<a href=Permission/UpdatePage/$ListPageNameId><span class=\"glyphicon glyphicon-edit\" title=\"Update\"></span></a>";
+								$Edit="<a href=Permission.php/?Action=UpdatePage&UniqueId=$ListPageNameId><span class=\"glyphicon glyphicon-edit\" title=\"Update\"></span></a>";
 								$ListAllPage.="<tr>
 													<td>$ListPage</td>
 													<td>$Edit</td>
@@ -156,7 +156,7 @@ include("Template/Sidebar.php");
 						
 						if($ActionPage=="")
 						{
-						  $ActionPage="ReportAction";
+						  $ActionPage="ReportAction.php";
 						  $ButtonContent="Get"; 
 						}
 				?>
@@ -230,14 +230,17 @@ include("Template/Sidebar.php");
 				if($Id!="" && $Action=="UpdatePage")
 				{
 					$query1="select * from pagename where PageNameId='$Id'";
-					$check1=mysqli_query($CONNECTION,$query1);
-					$count1=mysqli_num_rows($check1);
+					
+					$params = array();
+					$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+					$stmt = sqlsrv_query( $conn, $query1 , $params, $options );
+					$count1=sqlsrv_num_rows($stmt);
 					if($count1>0)
 					{
-						$row1=mysqli_fetch_array($check1);
+						$row1=sqlsrv_fetch_array($stmt);
 						$Page=$row1['PageName'];
 						$PageButtonContentSet=1;
-						$PageAddButton="Update <a href=Permission><span class=\"cut-icon-plus-2 addbutton\"> Add</span></a>";
+						$PageAddButton="Update <a href=Permission.php><span class=\"cut-icon-plus-2 addbutton\"></span></a>";
 						$UpdatePageNameId=$Id;
 					}
 				}
@@ -276,7 +279,7 @@ include("Template/Sidebar.php");
 							</div>
 							
 							
-							<form class="form-horizontal" action="Action"  method="Post" name="ManagePage" id="ManagePage">
+							<form class="form-horizontal" action="Action.php"  method="Post" name="ManagePage" id="ManagePage">
 							
 									    <div class="panel-body">
 								            <div class="form-group">
@@ -290,7 +293,7 @@ include("Template/Sidebar.php");
 											<input type="hidden" name="Action" value="ManagePage" readonly>
 											<input type="hidden" name="RandomNumber" value="<?php echo $TOKEN; ?>" readonly>
 											<?php if($count1>0) { echo "<input type=\"hidden\" name=\"PageNameId\" value=\"$UpdatePageNameId\" readonly>"; } ?>
-											<?php $ButtonContent="Add"; ActionButton($ButtonContent,7); ?>
+											<?php ActionButton($PageAddButton,7); ?>
 										    </div>
                                         </div>
 							</form>				 

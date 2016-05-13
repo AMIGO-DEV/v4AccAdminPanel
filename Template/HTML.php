@@ -32,7 +32,7 @@
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-<<<<<<< HEAD
+
 	<script type="text/javascript" src="/gitproject/v4AccAdminPanel/assets/js/plugins/visualization/d3/d3.min.js"></script>
 	<script type="text/javascript" src="/gitproject/v4AccAdminPanel/assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
 	<script type="text/javascript" src="/gitproject/v4AccAdminPanel/assets/js/plugins/forms/styling/switchery.min.js"></script>
@@ -42,8 +42,8 @@
 	<script type="text/javascript" src="/gitproject/v4AccAdminPanel/assets/js/plugins/pickers/daterangepicker.js"></script>
 
 	<script type="text/javascript" src="/gitproject/v4AccAdminPanel/assets/js/core/app.js"></script>
-	<script type="text/javascript" src="/gitproject/v4AccAdminPanel/assets/js/pages/dashboard.js"></script>
-=======
+	<!--<script type="text/javascript" src="/gitproject/v4AccAdminPanel/assets/js/pages/dashboard.js"></script>-->
+
 	<script type="text/javascript" src="assets/js/plugins/visualization/d3/d3.min.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
 	<script type="text/javascript" src="assets/js/plugins/forms/styling/switchery.min.js"></script>
@@ -62,7 +62,6 @@
 
 	<script type="text/javascript" src="assets/js/core/app.js"></script>
 	<script type="text/javascript" src="assets/js/pages/wizard_stepy.js"></script>
->>>>>>> b559be317f82c1c432320d7d70fbe5f45b4ebe4a
 	<!-- /theme JS files -->
 	
 	<?php
@@ -73,7 +72,7 @@
     		<script type="text/javascript" src="/gitproject/v4AccAdminPanel/plugins/tables/dataTables/jquery.dataTables.min.js"></script>
     		<script type="text/javascript" src="/gitproject/v4AccAdminPanel/plugins/tables/responsive-tables/responsive-tables.js"></script>
 		<?php if(!isset($TW)) { ?>
-    		<script type="text/javascript" src="/gitproject/v4AccAdminPanel/js/datatable.js"></script>
+    		<!--<script type="text/javascript" src="/gitproject/v4AccAdminPanel/js/datatable.js"></script>-->
 		<?php } else { ?>
 
 			<script type="text/javascript" src="/gitproject/v4AccAdminPanel/js/datatablewith.js"></script>

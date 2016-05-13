@@ -1,14 +1,14 @@
 <?php
 error_reporting(0);
-//$PageName="productorder-grid";
+$PageName="productorder-grid";
 $TooltipRequired=1;
 $SearchRequired=1;
 $FormRequired=1;
 $TableRequired=1;
 require_once 'config.php';
-//include("Include.php");
+include("Include.php");
 
-//IsLoggedIn();
+IsLoggedIn();
 
 
 // storing  request (ie, get/post) global array to a variable  

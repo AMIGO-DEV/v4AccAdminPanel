@@ -1,4 +1,4 @@
-<?php
+-<?php
 	error_reporting(0);
 	$PageName="Route Master";
 	$TooltipRequired=1;
@@ -51,7 +51,7 @@
 		$routeMastId = "";
 		if(isset($_GET['Action']) && $_GET['Action'] == 'RM'){
 			if($_GET['UniqueId'] == ""){
-				header("Location:RouteMaster");
+				header("Location:RouteMaster.php");
 				exit;
 			}
 			$routeMastId = $_GET['UniqueId'];
@@ -63,28 +63,25 @@
 		}
 	
 	?>
-	<form action="Action" name="SetRouteMaster" id="SetRouteMaster" method="Post" >
+	<form action="Action.php" name="SetRouteMaster" id="SetRouteMaster" method="Post" >
 		<div class="row">
 		<div class="col-md-6">
 			<div class="form-group">
 			<label>State:</label>
-			<select name="State" id="State" class="form-control" onChange="getCities(this.value);">
+			<select name="State" id="State" class="form-control" onChange="getZones(this.value);">
 				<option>-- Select State -- </option>
 				<?Php
-					$state = "SELECT * FROM states WHERE country_id = '6' ORDER BY name";
+					$state = "SELECT State FROM MailingList WHERE State <> '' GROUP BY State ORDER BY State ASC";
 					$params = array();
 					$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
 					$state = sqlsrv_query( $conn, $state , $params, $options );
 					while($state101 = sqlsrv_fetch_array($state)){
-						$sel = "";
-						if($RouteMastData['State'] == $state101['id'])
-							$sel = "Selected"; 
 				?>
-					<option value="<?php echo $state101['id']; ?>" <?php echo $sel; ?>><?php echo $state101['name']; ?></option>
+					<option value="<?php echo $state101['State']; ?>" ><?php echo $state101['State']; ?></option>
 				<?php } ?>	
 			</select>
 		</div>
-		<div class="form-group">
+		<!--<div class="form-group">
 			<label>City:</label>
 			<select name="City" id="City" class="form-control" required="required">
 				<?php 
@@ -101,10 +98,27 @@
 				<option value="">-- Select City--</option>
 				<?php } ?>
 			</select>
-		</div>
+		</div>-->
 		<div class="form-group">
 			<label>Zone:</label>
-			<input type="text" name="Zone" class="form-control" required="required" placeholder="Zone" value="<?php echo $RouteMastData['Zone']; ?>">
+			<select name="Zone" class="form-control" required="required" id="Zone">
+				<option value="">-- Select Zone --</option>
+				<?php 
+				$sql = "SELECT Town FROM MailingList WHERE Town <> '' GROUP BY Town ORDER BY Town";
+				$params = array();
+				$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+				$routMaster = sqlsrv_query( $conn, $sql , $params, $options );
+				$count = sqlsrv_num_rows($routMaster);
+				if($count){
+				while($ZoneClient = sqlsrv_fetch_array($routMaster)){
+					$sel = "";
+					if($ZoneClient['Town'] == $RouteMastData['Zone']){
+						$sel = "Selected";
+					}
+				?>
+				<option value="<?php echo $ZoneClient['Town']; ?>" <?php echo $sel; ?>><?php echo $ZoneClient['Town']?></option>
+				<?php } } ?>
+			</select>
 		</div>
 		<div class="form-group">
 			<label>Route:</label>
@@ -131,7 +145,24 @@
 		</div>-->
 		<div class="form-group">
 			<label>Client:</label>
-			<input type="text" name="Client" class="form-control" required="required" placeholder="Client" value="<?php echo $RouteMastData['ClientName']; ?>">
+			<select name="Client" class="form-control" required="required">
+				<option value="">-- Select Client --</option>
+				<?php 
+				$sql = "SELECT * FROM Customers ORDER BY Nm";
+				$params = array();
+				$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+				$routMaster = sqlsrv_query( $conn, $sql , $params, $options );
+				$count = sqlsrv_num_rows($routMaster);
+				if($count){
+				while($routClient = sqlsrv_fetch_array($routMaster)){
+					$sel = "";
+					if($routClient['Code'] == $RouteMastData['ClientName']){
+						$sel = "Selected";
+					}
+				?>
+				<option value="<?php echo $routClient['Code']; ?>" <?php echo $sel; ?>><?php echo $routClient['Nm']?></option>
+				<?php } } ?>
+			</select>
 		</div>
 		</div>
 		</div>
@@ -163,7 +194,7 @@
 		$routeAssId = "";
 		if(isset($_GET['Action']) && $_GET['Action'] == 'RA'){
 			if($_GET['UniqueId'] == ""){
-				header("Location:RouteMaster");
+				header("Location:RouteMaster.php");
 				exit;
 			}
 			$routeAssId = $_GET['UniqueId'];
@@ -176,10 +207,10 @@
 	
 	?>
 	<div class="panel-body">
-	<form action="Action" name="SetRouteAssignment" id="SetRouteAssignment" method="Post" >
+	<form action="Action.php" name="SetRouteAssignment" id="SetRouteAssignment" method="Post" >
 		<div class="row">
 		<div class="col-md-6">
-			<div class="form-group">
+		<div class="form-group">
 			<label>Route Name:</label>
 			<select name="RouteId" class="form-control" required="required">
 				<option value="">-- Select Route --</option>
@@ -209,18 +240,63 @@
 			<input type="text" placeholder="End date" data-mask="99/99/9999" class="form-control daterange-single" name="end_date" id="end_date" <?php if($RouteAssData['EndDate'] != "") echo date("m/d/Y",$RouteAssData['EndDate']); else echo ""; ?>>
 		</div>
 		</div>
+		<?php $Vstatus=$RouteAssData['Day']; ?>
 		<div class="col-md-6">
 		<div class="form-group">
 			<label>Day:</label>
-			<input type="text" class="form-control" required="required" placeholder="Day" name="day" value="<?php echo $RouteAssData['Day']; ?>">
+			<select tabindex="1"  class="form-control"  name="day" required="required">
+			<option>Select-Day</option>
+			<option value="Monday"<?php if($Vstatus == 'Monday')echo 'selected';?>>Monday</option>
+			<option value="Tuesday"<?php if($Vstatus == 'Tuesday')echo 'selected';?>>Tuesday</option>
+			<option value="Wenesday"<?php if($Vstatus == 'Wenesday')echo 'selected';?>>Wenesday</option>
+			<option value="Thusday"<?php if($Vstatus == 'Thusday')echo 'selected';?>>Thusday</option>
+			<option value="Friday"<?php if($Vstatus == 'Friday')echo 'selected';?>>Friday</option>
+			<option value="Saturday"<?php if($Vstatus == 'Saturday')echo 'selected';?>>Saturday</option>
+			<option value="Sunday"<?php if($Vstatus == 'Sunday')echo 'selected';?>>Sunday</option>
+		</select>
 		</div>
 		<div class="form-group">
 			<label>Truck Number:</label>
-			<input type="text" class="form-control" required="required" placeholder="truck number" name="truckno" value="<?php echo $RouteAssData['TruckNum']; ?>">
+			<select name="truckno" class="form-control" required="required">
+				<option value="">-- Select Truck --</option>
+				<?php 
+				$sql60 = "select Code from GenlookUp where Recid='7031'";
+				$params = array();
+				$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+				$TruckCode = sqlsrv_query( $conn, $sql60 , $params, $options );
+				$count = sqlsrv_num_rows($TruckCode);
+				if($count){
+				while($Truck = sqlsrv_fetch_array($TruckCode)){
+					$sel = "";
+					if($Truck['Code'] == $RouteAssData['TruckNum']){
+						$sel = "Selected";
+					}
+				?>
+				<option value="<?php echo $Truck['Code']; ?>" <?php echo $sel; ?>><?php echo $Truck['Code']?></option>
+				<?php } } ?>
+			</select>
 		</div>
 		<div class="form-group">
 			<label>Sales Man:</label>
-			<input type="text" class="form-control" required="required" placeholder="salesman" name="salesman" value="<?php echo $RouteAssData['SalesMan']; ?>">
+			
+			<select name="salesman" class="form-control" required="required">
+				<option value="">-- Select Salesman --</option>
+				<?php 
+				$sql63 = "select Nm from Personnel";
+				$params = array();
+				$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
+				$Salesman = sqlsrv_query( $conn, $sql63 , $params, $options );
+				$count = sqlsrv_num_rows($Salesman);
+				if($count){
+				while($Sales = sqlsrv_fetch_array($Salesman)){
+					$sel = "";
+					if($Sales['Nm'] == $RouteAssData['SalesMan']){
+						$sel = "Selected";
+					}
+				?>
+				<option value="<?php echo $Sales['Nm']; ?>" <?php echo $sel; ?>><?php echo $Sales['Nm'];?></option>
+				<?php } } ?>
+			</select>
 		</div>
 		</div>
 		</div>
@@ -265,13 +341,17 @@
 		</thead>
 		<tbody>
 		<?php 
-		    $sql = "SELECT rm.*,states.name AS stateName,cities.name AS cityName FROM route_master AS rm LEFT JOIN states ON rm.State = states.id LEFT JOIN cities ON rm.City = cities.id";
+		    $sql = "SELECT rm.*,states.name AS stateName,cities.name AS cityName,Customers.Nm AS Client FROM route_master AS rm LEFT JOIN states ON rm.State = states.id LEFT JOIN cities ON rm.City = cities.id LEFT JOIN Customers on rm.ClientName = Customers.Code";
 			$params = array();
 			$options =  array( "Scrollable" => SQLSRV_CURSOR_KEYSET );
 			$routMaster = sqlsrv_query( $conn, $sql , $params, $options );
 			$count = sqlsrv_num_rows($routMaster);
 			if($count){
 			while($routMast = sqlsrv_fetch_array($routMaster)){
+			 $uid = $routMast['RouteMastId'];
+			$Edit="<a href=RouteMaster.php/?Action=RM&UniqueId=$uid>Edit</a>";
+			
+			
 		?>
 			<tr>
 				<td><?php echo $routMast['stateName']; ?></td>
@@ -279,12 +359,12 @@
 				<td><?php echo $routMast['Zone']; ?></td>
 				<td><?php echo $routMast['RouteName']; ?></td>
 				<td><?php echo $routMast['Area']; ?></td>
-				<td><?php echo $routMast['ClientName']; ?></td>
+				<td><?php echo $routMast['Client']; ?></td>
 				<td class="text-center">
-				<a href="RouteMaster/RM/<?Php echo $routMast['RouteMastId']; ?>">Edit</a>
+				<?php echo $Edit;  ?>
 				</td>
 			</tr>
-			<?php } } ?>
+			<?php  } } ?>
 		</tbody>
 	</table>
 </div>
@@ -329,6 +409,8 @@
 			$count = sqlsrv_num_rows($routAssign);
 			if($count){
 			while($routAss = sqlsrv_fetch_array($routAssign)){
+				 $cid = $routAss['RouteAssignId'];
+			$Edited="<a href=RouteMaster.php/?Action=RA&UniqueId=$cid>Edit</a>";
 		?>
 			<tr>
 				<td><?php echo $routAss['RouteName']; ?></td>
@@ -338,7 +420,7 @@
 				<td><?php echo $routAss['TruckNum']; ?></td>
 				<td><?php echo $routAss['SalesMan']; ?></td>
 				<td class="text-center">
-					<a href="RouteMaster/RA/<?Php echo $routAss['RouteAssignId']; ?>">Edit</a>
+					<?php echo $Edited; ?>
 				</td>
 			</tr>
 			<?php } } ?>
@@ -351,17 +433,17 @@
 $('.daterange-single').daterangepicker({
         singleDatePicker: true,
     });
-function getCities(val){
+function getZones(val){
 	$.ajax({
 		url: 'Action.php',
 		type: 'POST',  
 		dataType: 'html',
 		data:{
-			Action: 'GetCities',
+			Action: 'GetZones',
 			stateCode : val
 		},
 		success: function(data) {
-			 $("#City").html(data);
+			 $("#Zone").html(data);
 		},
 		error: function() {
 		}

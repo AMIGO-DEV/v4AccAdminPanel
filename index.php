@@ -8,7 +8,12 @@ include("Include.php");
 SESSION_START();
 require_once 'config.php';
  
- 
+if($ErrorMessage!="")
+{}
+else {
+	$Login=Login();
+	if($Login==1)
+	header("Location:dashboard.php");
 if(isset($_POST['login']))
 {
 	$Username=isset($_POST['username']) ? $_POST['username'] : '';
@@ -39,7 +44,9 @@ if(isset($_POST['login']))
 			 $_SESSION['USERTYPE'] = $row_data['vusertype'];
 			 $_SESSION['USERNAME']=$Username;
 			
-			header("Location:DashBoard");
+			header("Location:dashboard.php");
+			$Message="Logged in Successful!!";
+			$Type="success";
 		}
 		
 	}
@@ -50,6 +57,8 @@ if(isset($_POST['login']))
 		echo "</script>";
 	}
 }
+}
+SetNotification($Message,$Type);
 ?>
 
 <!DOCTYPE html>

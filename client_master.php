@@ -5,8 +5,8 @@
 	$FormRequired=1;
 	$TableRequired=1;
 	require_once 'config.php';
-	//include("Include.php");
-	//IsLoggedIn();
+	include("Include.php");
+	IsLoggedIn();
 	include("Template/HTML.php");
 	
 	
@@ -25,155 +25,7 @@ include("Template/Sidebar.php");
 
 				<!-- Content area -->
 				<div class="content">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Name:</label>
-                                <input type="text" name="basic" class="form-control" required="required" placeholder="NAME">
-                            </div>
-                            <div class="form-group">
-                                <label>Contact No.:</label>
-                                <input type="phone" name="basic" class="form-control" required="required" placeholder="CONTACT NO.">
-                            </div>
-                            <div class="form-group">
-                                <label>Email Address:</label>
-                                <input type="email" name="basic" class="form-control" required="required" placeholder="">
-                            </div>   
-                            <div class="form-group">
-                                <label>Website:</label>
-                                <input type="email" name="basic" class="form-control" required="required" placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Client Type:</label>
-                                <select name="default_select" class="form-control" required="required">
-                                    <option value="">Client type</option> 
-                                    <optgroup label="">
-                                        <option value="HP">Cleint type1</option>
-                                        <option value="DE">Cleint type2</option>
-                                        <option value="LE">Cleint type3</option>
-                                    </optgroup>
-                                </select>
-                            </div>
-                            <div class="row"><div class="col-md-6">
-                            <div class="form-group">
-                                <label>Manufacturer:</label>
-                                <select name="default_select" class="form-control" required="required">
-                                    <option value="">Select Manufacturer from the list</option> 
-                                    <optgroup label="HP / Dell / Lenovo">
-                                        <option value="HP">HP</option>
-                                        <option value="DE">Dell</option>
-                                        <option value="LE">Lenovo</option>
-                                    </optgroup>
-                                </select>
-                            </div></div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                <label>Supplier:</label>
-                                <select name="default_select" class="form-control" required="required">
-                                    <option value="">Select supplier</option> 
-                                        <option value="HP">Supplier1</option>
-                                        <option value="DE">Supplier2</option>
-                                        <option value="LE">Supplier3</option>
-                                </select>
-                                </div></div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Dealer:</label>
-                                <select name="default_select" class="form-control" required="required">
-                                    <option value="">Select dealer</option> 
-                                        <option value="HP">Dealer1</option>
-                                        <option value="DE">Dealer2</option>
-                                        <option value="LE">Dealer3</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Distributor:</label>
-                                <select name="default_select" class="form-control" required="required">
-                                    <option value="">Select distributor</option> 
-                                        <option value="HP">Distributor1</option>
-                                        <option value="DE">Distributor2</option>
-                                        <option value="LE">Distributor3</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">&nbsp;</div>
-                    
-                    <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                        <label>Client Address:</label>
-                        <input type="text" name="basic" class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
-                        <label>Client Address2:</label>
-                        <input type="text" name="basic" class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
-                        <label>Client Zone:</label>
-                        <select name="default_select" class="form-control" required="required">
-                        <option value="">client zone</option> 
-                        <option value="HP">value1</option>
-                        <option value="DE">value2</option>
-                        <option value="LE">value3</option>
-                        </select>
-                        </div>
-                        <div class="form-group">
-                        <label>City:</label>
-                        <select name="default_select" class="form-control" required="required">
-                        <option value="">Select City</option> 
-                        <option value="HP">City1</option>
-                        <option value="DE">City2</option>
-                        <option value="LE">City3</option>
-                        </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                        <label>Zone:</label>
-                        <select name="default_select" class="form-control" required="required">
-                        <option value="">Select Zone</option> 
-                        <option value="HP">Zone1</option>
-                        <option value="DE">Zone2</option>
-                        <option value="LE">Zone3</option>
-                        </select>
-                        </div>
-
-                        <div class="form-group">
-                        <label>State:</label>
-                        <select name="default_select" class="form-control" required="required">
-                        <option value="">Select State</option> 
-                        <option value="HP">State1</option>
-                        <option value="DE">State2</option>
-                        <option value="LE">State3</option>
-                        </select>
-                        </div>
-                        
-                        <div class="form-group">
-                        <label>Country:</label>
-                        <select name="default_select" class="form-control" required="required">
-                        <option value="">Select Country</option> 
-                        <option value="HP">Country1</option>
-                        <option value="DE">Country2</option>
-                        <option value="LE">Country3</option>
-                        </select>
-                        </div>
-                        
-                        <div class="form-group">
-                        <label>Pincode:</label>
-                        <input type="text" name="basic" class="form-control" placeholder="">
-                        </div>
-                        
-                        
-                    </div>
-                    </div>
-                    
-					
+                   
 					
 					
 					<link href="assets/css/responce_datatable/jquery.dataTables.css" rel="stylesheet" type="text/css">
@@ -259,33 +111,50 @@ include("Template/Sidebar.php");
 
 			</style>
 					<div class="container">
+						<div class="panel panel-flat">
+						<div class="panel-heading">
+							<h5 class="panel-title">Client Master</h5>
+							<div class="heading-elements">
+								<ul class="icons-list">
+									<li><a data-action="collapse"></a></li>
+									<li><a data-action="reload"></a></li>
+									<li><a data-action="close"></a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="panel-body">
+					
 											<table class="table datatable-basic display" id="client_master-grid" cellspacing="0" width="100%">
 												<thead>
 													<tr>
 														<th>Name 
 														<input type="text" data-column="0"  class="search-input-text">
 														</th>
-														<th>Address
+														<th>Location
 														<input type="text" data-column="1"  class="search-input-text">
 														</th>
-														<th>Phone No.
+														<th>Address
 														<input type="text" data-column="2"  class="search-input-text">
 														</th>
-														<th>Email
+														<th>Phone No.
 														<input type="text" data-column="3"  class="search-input-text">
 														</th>
-														<th>Zone
+														<th>Email
 														<input type="text" data-column="4"  class="search-input-text">
 														</th>
+														<th>Zone
+														<input type="text" data-column="5"  class="search-input-text">
+														</th>
 														<th>Root Name 
-														<input type="text" data-column="4"  class="search-input-text">
+														<input type="text" data-column="6"  class="search-input-text">
 														</th>
 														
 													</tr>
 												</thead>
 												</table>
 											</div>
-										
+						</div>				
                     
                     </div>
 					

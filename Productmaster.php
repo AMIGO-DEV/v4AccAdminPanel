@@ -5,8 +5,8 @@
 	$FormRequired=1;
 	$TableRequired=1;
 	require_once 'config.php';
-	//include("Include.php");
-	//IsLoggedIn();
+	include("Include.php");
+	IsLoggedIn();
 	include("Template/HTML.php");
 	
 	

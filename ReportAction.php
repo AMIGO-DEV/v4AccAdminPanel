@@ -8,7 +8,7 @@ header("Location:LogIn");
 elseif($Action=="SetPermission")
 {
 	$UserType=$_POST['UserType'];
-	header("Location:Permission/SetPermission/$UserType");	
+	header("Location:Permission.php/?Action=SetPermission&UniqueId=$UserType");	
 }
 ///////////////////////////////////////////////////////////////////////////////////////////
 elseif($Action=="ExamReport")

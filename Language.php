@@ -140,7 +140,7 @@ if(isset($_POST['Language']))
 				<?php if($LANGUAGE!=0) { ?>
                 <div class="row-fluid">
                     <div class="span12">
-						<form class="form-horizontal" action="Action" name="Translation" id="Translation" method="Post">
+						<form class="form-horizontal" action="Action.php" name="Translation" id="Translation" method="Post">
                         <div class="box chart gradient">
                             <div class="title">
                                 <h4>
@@ -169,7 +169,7 @@ if(isset($_POST['Language']))
                                 <a href="#" class="minimize">Minimize</a>
                             </div>
                             <div class="content noPad clearfix" style="padding-bottom:0;">
-								<form class="form-horizontal" action="Action" name="Language" id="Language" method="Post">
+								<form class="form-horizontal" action="Action.php" name="Language" id="Language" method="Post">
 									<div class="form-row row-fluid">
 										<div class="span12">
 											<div class="row-fluid">
@@ -209,7 +209,7 @@ if(isset($_POST['Language']))
                                 <a href="#" class="minimize">Minimize</a>
                             </div>
                             <div class="content noPad clearfix" style="padding-bottom:0;">
-								<form class="form-horizontal" action="Action" name="Phrase" id="Phrase" method="Post">
+								<form class="form-horizontal" action="Action.php" name="Phrase" id="Phrase" method="Post">
 									<div class="form-row row-fluid">
 										<div class="span12">
 											<div class="row-fluid">
